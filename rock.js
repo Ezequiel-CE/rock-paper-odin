@@ -63,6 +63,18 @@ const game = function () {
     //elecciones
 
     const playerChoice = prompt("choice Rock,Paper or Scissor").toLowerCase();
+
+    if (
+      !(
+        playerChoice === "rock" ||
+        playerChoice === "paper" ||
+        playerChoice === "scissor"
+      )
+    ) {
+      console.log("ingrese correcto valor");
+      continue;
+    }
+
     const computer_Choice = computerPlay().toLowerCase();
     console.log(playRound(playerChoice, computer_Choice));
     console.log(`player score: ${playerScore} / cpu score: ${computerScore}`);
@@ -74,21 +86,3 @@ let playerScore = 0;
 let computerScore = 0;
 
 game();
-
-let output = document.querySelector('.output');
-output.innerHTML = '';
-
-
-
-for(let i = 10; i === 0; i--){
-const para = document.createElement('p');
- if( i=== 10){
-   para.textContent = 'Countdown ' + i;
- }else if(i === 0) {
-  para.textContent = 'Blast off!';
- } else {
- para.textContent = i;
- }
-output.appendChild(para);
-
-}
