@@ -5,8 +5,35 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Rock-paper-scissor</title>
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
+    <script src="./rock.js" defer></script>
   </head>
   <body>
-    <script src="./rock.js"></script>
+    <h1>Rock-paper-scissor</h1>
+    <div class="container">
+      <div class="player">
+        <p class="title">Player</p>
+        <p class="icon">✌️</p>
+        <p class="score">0</p>
+      </div>
+      <p class="vs">VS</p>
+      <div class="cpu">
+        <p class="title">CPU</p>
+        <p class="icon">✊</p>
+        <p class="score">0</p>
+      </div>
+    </div>
+    <h2>Press a button to start</h2>
+    <div class="btn-container">
+      <button class="options">Piedra</button>
+      <button class="options">papel</button
+      ><button class="options">tijera</button>
+    </div>
   </body>
 </html>

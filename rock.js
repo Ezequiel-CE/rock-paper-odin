@@ -57,30 +57,30 @@ const playRound = function (playerC, computerC) {
 
 //juego
 
-const game = function () {
-  //loop
-  for (let i = 1; i <= 5; i++) {
-    //elecciones
+// const game = function () {
+//   //loop
+//   for (let i = 1; i <= 5; i++) {
+//     //elecciones
 
-    const playerChoice = prompt("choice Rock,Paper or Scissor").toLowerCase();
+//     const playerChoice = prompt("choice Rock,Paper or Scissor").toLowerCase();
 
-    if (
-      !(
-        playerChoice === "rock" ||
-        playerChoice === "paper" ||
-        playerChoice === "scissor"
-      )
-    ) {
-      console.log("ingrese correcto valor");
-      continue;
-    }
+//     if (
+//       !(
+//         playerChoice === "rock" ||
+//         playerChoice === "paper" ||
+//         playerChoice === "scissor"
+//       )
+//     ) {
+//       console.log("ingrese correcto valor");
+//       continue;
+//     }
 
-    const computer_Choice = computerPlay().toLowerCase();
-    console.log(playRound(playerChoice, computer_Choice));
-    console.log(`player score: ${playerScore} / cpu score: ${computerScore}`);
-    console.log("++++++++++++++++++++++++++++++++++++++++++");
-  }
-};
+//     const computer_Choice = computerPlay().toLowerCase();
+//     console.log(playRound(playerChoice, computer_Choice));
+//     console.log(`player score: ${playerScore} / cpu score: ${computerScore}`);
+//     console.log("++++++++++++++++++++++++++++++++++++++++++");
+//   }
+// };
 
 let playerScore = 0;
 let computerScore = 0;
