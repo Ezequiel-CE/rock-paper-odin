@@ -1,5 +1,3 @@
-//Metodos
-
 // desicion de pc
 
 const computerPlay = function () {
@@ -46,59 +44,61 @@ const updateIco = (player, computer) => {
   }
 };
 
-const updateWinner = (winner) => {};
+//actualiza los elementos del que pierde
+
+const updateWinner = (winner) => {
+  if (winner) {
+    announcer.textContent = `Player win`;
+    playerScore++;
+    playerScoreIco.textContent = playerScore;
+  } else {
+    announcer.textContent = `Computer win`;
+    computerScore++;
+    cpuScoreIco.textContent = computerScore;
+  }
+};
 
 //jugar round
 
 const playRound = function (playerC, computerC) {
-  let roundWinner = "";
+  let playerWin = null;
   //tie
 
   if (playerC === computerC) {
     announcer.textContent = "Tie";
     playerICO.textContent = "💩";
     ComputerICO.textContent = "💩";
+    return;
   }
 
   //rock
 
   if (playerC === "rock" && computerC === "scissor") {
-    roundWinner = "player";
-    announcer.textContent = `Player win, ${playerC} beats ${computerC}`;
-    playerScore++;
-    playerScoreIco.textContent = playerScore;
+    playerWin = true;
   }
   if (playerC === "rock" && computerC === "paper") {
-    announcer.textContent = `Player Lose, ${playerC} lose to ${computerC}`;
-    computerScore++;
-    cpuScoreIco.textContent = computerScore;
+    playerWin = false;
   }
 
   //paper
 
   if (playerC === "paper" && computerC === "rock") {
-    announcer.textContent = `Player win, ${playerC} beats ${computerC}`;
-    playerScore++;
-    playerScoreIco.textContent = playerScore;
+    playerWin = true;
   }
   if (playerC === "paper" && computerC === "scissor") {
-    announcer.textContent = `Player Lose, ${playerC} lose to ${computerC}`;
-    computerScore++;
-    cpuScoreIco.textContent = computerScore;
+    playerWin = false;
   }
 
   //scissor
 
   if (playerC === "scissor" && computerC === "paper") {
-    announcer.textContent = `Player win, ${playerC} beats ${computerC}`;
-    playerScore++;
-    playerScoreIco.textContent = playerScore;
+    playerWin = true;
   }
   if (playerC === "scissor" && computerC === "rock") {
-    announcer.textContent = `Player Lose, ${playerC} lose to ${computerC}`;
-    computerScore++;
-    cpuScoreIco.textContent = computerScore;
+    playerWin = false;
   }
+
+  updateWinner(playerWin);
 };
 
 //se dispara al apretar
@@ -107,10 +107,16 @@ const buttoPress = (e) => {
   const playerChoice = e.target.textContent.toLowerCase();
   const computerChoice = computerPlay();
 
+  if (playerScore < 5 && computerScore < 5) {
+    updateIco(playerChoice, computerChoice);
+    playRound(playerChoice, computerChoice);
+  }
+
   if (playerScore === 5) {
     playerICO.textContent = "😄";
     ComputerICO.textContent = "💥";
     announcer.textContent = "Player wins";
+    restartBtn.classList.remove("hide");
     return;
   }
 
@@ -118,11 +124,9 @@ const buttoPress = (e) => {
     playerICO.textContent = "🤕";
     ComputerICO.textContent = "🤖";
     announcer.textContent = "CPU wins";
+    restartBtn.classList.remove("hide");
     return;
   }
-
-  updateIco(playerChoice, computerChoice);
-  playRound(playerChoice, computerChoice);
 };
 
 //variables de juego
@@ -138,9 +142,21 @@ const playerICO = document.querySelector(".player .icon");
 const ComputerICO = document.querySelector(".cpu .icon");
 const playerScoreIco = document.querySelector(".player .score");
 const cpuScoreIco = document.querySelector(".cpu .score");
+const restartBtn = document.querySelector(".restart");
 
 //
 
 btns.forEach((btn) => {
   btn.addEventListener("click", buttoPress);
+});
+
+restartBtn.addEventListener("click", () => {
+  playerScore = 0;
+  computerScore = 0;
+  ComputerICO.textContent = "🤖";
+  playerICO.textContent = "😄";
+  playerScoreIco.textContent = "0";
+  cpuScoreIco.textContent = "0";
+
+  restartBtn.classList.add("hide");
 });

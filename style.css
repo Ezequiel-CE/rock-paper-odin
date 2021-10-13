@@ -7,11 +7,13 @@
 body {
   font-family: "Press Start 2P", cursive;
   background-color: rgba(127, 201, 15, 0.733);
+  height: 100vh;
+  position: relative;
 }
 
 h1 {
   text-align: center;
-  margin-top: 50px;
+  padding-top: 50px;
   margin-bottom: 100px;
 }
 
@@ -70,4 +72,14 @@ h2 {
 .options:hover {
   background-color: rgb(66, 64, 64);
   color: aliceblue;
+}
+
+.restart {
+  position: absolute;
+  right: 60px;
+  bottom: 40px;
+}
+
+.hide {
+  display: none;
 }
