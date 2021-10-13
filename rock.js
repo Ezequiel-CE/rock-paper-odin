@@ -1,88 +1,146 @@
+//Metodos
+
 // desicion de pc
 
 const computerPlay = function () {
   let choice = Math.floor(Math.random() * 3) + 1;
 
   if (choice === 1) {
-    return "Rock";
+    return "rock";
   } else if (choice === 2) {
-    return "Paper";
+    return "paper";
   } else {
-    return "Scissor";
+    return "scissor";
   }
 };
+
+// escoge los iconos segun el parametro
+
+const updateIco = (player, computer) => {
+  switch (player) {
+    case "rock":
+      playerICO.textContent = "✊";
+      break;
+    case "paper":
+      playerICO.textContent = "🖐️";
+      break;
+    case "scissor":
+      playerICO.textContent = "✌️";
+      break;
+    default:
+      playerICO.textContent = "💩";
+  }
+
+  switch (computer) {
+    case "rock":
+      ComputerICO.textContent = "✊";
+      break;
+    case "paper":
+      ComputerICO.textContent = "🖐️";
+      break;
+    case "scissor":
+      ComputerICO.textContent = "✌️";
+      break;
+    default:
+      ComputerICO.textContent = "💩";
+  }
+};
+
+const updateWinner = (winner) => {};
 
 //jugar round
 
 const playRound = function (playerC, computerC) {
+  let roundWinner = "";
   //tie
 
   if (playerC === computerC) {
-    return "it a tie";
+    announcer.textContent = "Tie";
+    playerICO.textContent = "💩";
+    ComputerICO.textContent = "💩";
   }
 
   //rock
 
   if (playerC === "rock" && computerC === "scissor") {
+    roundWinner = "player";
+    announcer.textContent = `Player win, ${playerC} beats ${computerC}`;
     playerScore++;
-    return `Player win, ${playerC} beats ${computerC}`;
+    playerScoreIco.textContent = playerScore;
   }
   if (playerC === "rock" && computerC === "paper") {
+    announcer.textContent = `Player Lose, ${playerC} lose to ${computerC}`;
     computerScore++;
-    return `Player Lose, ${playerC} lose to ${computerC}`;
+    cpuScoreIco.textContent = computerScore;
   }
 
   //paper
 
   if (playerC === "paper" && computerC === "rock") {
+    announcer.textContent = `Player win, ${playerC} beats ${computerC}`;
     playerScore++;
-    return `Player win, ${playerC} beats ${computerC}`;
+    playerScoreIco.textContent = playerScore;
   }
   if (playerC === "paper" && computerC === "scissor") {
+    announcer.textContent = `Player Lose, ${playerC} lose to ${computerC}`;
     computerScore++;
-    return `Player Lose, ${playerC} lose to ${computerC}`;
+    cpuScoreIco.textContent = computerScore;
   }
 
   //scissor
 
   if (playerC === "scissor" && computerC === "paper") {
+    announcer.textContent = `Player win, ${playerC} beats ${computerC}`;
     playerScore++;
-    return `Player win, ${playerC} beats ${computerC}`;
+    playerScoreIco.textContent = playerScore;
   }
   if (playerC === "scissor" && computerC === "rock") {
+    announcer.textContent = `Player Lose, ${playerC} lose to ${computerC}`;
     computerScore++;
-    return `Player Lose, ${playerC} lose to ${computerC}`;
+    cpuScoreIco.textContent = computerScore;
   }
 };
 
-//juego
+//se dispara al apretar
 
-// const game = function () {
-//   //loop
-//   for (let i = 1; i <= 5; i++) {
-//     //elecciones
+const buttoPress = (e) => {
+  const playerChoice = e.target.textContent.toLowerCase();
+  const computerChoice = computerPlay();
 
-//     const playerChoice = prompt("choice Rock,Paper or Scissor").toLowerCase();
+  if (playerScore === 5) {
+    playerICO.textContent = "😄";
+    ComputerICO.textContent = "💥";
+    announcer.textContent = "Player wins";
+    return;
+  }
 
-//     if (
-//       !(
-//         playerChoice === "rock" ||
-//         playerChoice === "paper" ||
-//         playerChoice === "scissor"
-//       )
-//     ) {
-//       console.log("ingrese correcto valor");
-//       continue;
-//     }
+  if (computerScore === 5) {
+    playerICO.textContent = "🤕";
+    ComputerICO.textContent = "🤖";
+    announcer.textContent = "CPU wins";
+    return;
+  }
 
-//     const computer_Choice = computerPlay().toLowerCase();
-//     console.log(playRound(playerChoice, computer_Choice));
-//     console.log(`player score: ${playerScore} / cpu score: ${computerScore}`);
-//     console.log("++++++++++++++++++++++++++++++++++++++++++");
-//   }
-// };
+  updateIco(playerChoice, computerChoice);
+  playRound(playerChoice, computerChoice);
+};
+
+//variables de juego
 
 let playerScore = 0;
 let computerScore = 0;
 
-game();
+//Dom elements
+
+const btns = [...document.querySelectorAll(".options")];
+const announcer = document.querySelector("h2");
+const playerICO = document.querySelector(".player .icon");
+const ComputerICO = document.querySelector(".cpu .icon");
+const playerScoreIco = document.querySelector(".player .score");
+const cpuScoreIco = document.querySelector(".cpu .score");
+
+//
+
+btns.forEach((btn) => {
+  btn.addEventListener("click", buttoPress);
+});
